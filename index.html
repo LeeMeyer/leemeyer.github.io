@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Supercharged Scrolling</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -16,8 +16,282 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h3>Supercharged Scrolling with CSS</h3>
+					<img height="300" src="https://media.istockphoto.com/id/1202793621/vector/ancient-scroll-museum-icon.jpg?s=612x612&w=0&k=20&c=uIe8_RQZtmJ_tJKtmlyH2acgmjHRI142zwEbE2U8LoA=">
+					<div>by Lee Meyer</div>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Scroll-linked animation without scroll timeline</h2>
+					<div data-id="demo">
+						<p class="codepen" data-height="416" data-default-tab="html,result" data-slug-hash="NWxpJVx" data-pen-title="Bind CSS keyframe animation to scroll" data-user="chriscoyier" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+							<span>See the Pen <a href="https://codepen.io/chriscoyier/pen/NWxpJVx">
+						Bind CSS keyframe animation to scroll</a> by Chris Coyier  (<a href="https://codepen.io/chriscoyier">@chriscoyier</a>)
+						on <a href="https://codepen.io">CodePen</a>.</span>
+							</p>
+							<script async src="https://public.codepenassets.com/embed/index.js"></script>
+							<script src="https://www.youtube.com/iframe_api"></script>
+					</div>
+				  </section>
+				<section data-auto-animate>
+					<h2>Scroll-linked animation without scroll timeline</h2>
+						<pre data-id="code2">
+							<code data-trim data-noescape data-line-numbers>
+								window.addEventListener('scroll', () => {
+									document.body.style.setProperty('--scroll',
+									window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
+								}, false);
+							</code>
+						</pre>
+						<pre data-id="code">
+							<code data-trim data-noescape data-line-numbers>						
+							body, .progress, .cube {
+								/* Pause the animation */
+								animation-play-state: paused;
+								/* Bind the animation to scroll */
+								animation-delay: calc(var(--scroll) * -1s);
+								/* These last 2 properites clean up overshoot weirdness */
+								animation-iteration-count: 1;
+								animation-fill-mode: both;
+							}
+							</code>
+						</pre>
+				  </section>
+				  <section data-auto-animate>
+					  <h2>Scroll-driven animation with scroll timeline!</h2>
+					  <div data-id="demo">
+			 
+					  <pre data-id="code"><code data-trim data-noescape data-line-numbers>
+						body, .progress, .cube {
+							animation-timeline: scroll();
+						}
+					  </code>
+					  </pre>
+				  </section>
+				  <section data-auto-animate>
+					<h2>Scroll-driven animation with scroll timeline!</h2>
+					<div data-id="demo">
+						<p class="codepen" data-height="416" data-default-tab="html,result" data-slug-hash="ZEdZNjR" data-pen-title="scroll timeline cube" data-user="leemeyer" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+							<span>See the Pen <a href="https://codepen.io/leemeyer/pen/ZEdZNjR">
+						scroll timeline cube</a> by lee (<a href="https://codepen.io/leemeyer">@leemeyer</a>)
+						on <a href="https://codepen.io">CodePen</a>.</span>
+							</p>
+							<script async src="https://public.codepenassets.com/embed/index.js"></script>
+					</div>
+				  </section>
+				  <section data-transition="slide-in">
+					<h2>Nonlinear Scrollytelling with scroll-state!</h2>
+					<p class="codepen" data-height="416" data-default-tab="html,result" data-slug-hash="zxrmzQw" data-pen-title="Nonlinear Scrollytelling" data-user="leemeyer" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+						<span>See the Pen <a href="https://codepen.io/leemeyer/pen/zxrmzQw">
+					Nonlinear Scrollytelling</a> by lee (<a href="https://codepen.io/leemeyer">@leemeyer</a>)
+					on <a href="https://codepen.io">CodePen</a>.</span>
+						</p>
+						<script async src="https://public.codepenassets.com/embed/index.js"></script>
+				  </section>
+				  <section data-transition="slide-in">
+					<div>
+					<pre data-id="code">
+						<code data-trim data-noescape>
+							.idle {
+								animation: idleAnim 1s steps(6) infinite;
+							}
+							
+							/*scroll direction detection using scroll timelines 
+							https://www.bram.us/2023/10/23/css-scroll-detection*/
+							.sprite {
+								transform: rotateY(calc(1deg * 
+								   min(0, var(--scroll-direction) * 180)));
+							}
+							
+							@container not style(--scroll-direction: 0) {
+								.sprite {
+									animation: runAnim 0.8s steps(8) infinite;
+								}
+							}
+						</code>
+					</pre>						
+				   </code>
+				   </pre>
+				</div>
+
+					<iframe id="ytplayer" width="700" height="315" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=3&amp;rel=0&amp;end=5&amp;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				  </section>			
+		
+				  <section data-transition="slide-in">
+					<div>
+					<pre data-id="code">
+						<code data-trim data-noescape data-line-numbers="10|15-40">
+							.sky, .buildings-back, .buildings-mid, .sky-vertical, .buildings-back-vertical, .buildings-mid-vertical {
+								position: fixed;
+								top: 0;
+								left: 0;
+								width: 800%;
+								height: max(100vh, 300px);
+								background-size: auto max(100vh, 300px);
+								background-repeat: repeat-x;
+								animation-timing-function: linear;
+								animation-timeline: scroll(x);
+							}
+							  
+							/*...repetitively assign the corresponding animations to each layer...*/
+							  
+							@keyframes move-sky {
+								from {
+								  transform: translateX(0);
+								}
+								to {
+								  transform: translateX(-2.5%);
+								}
+							}
+							  
+							@keyframes move-back {
+								from {
+								  transform: translateX(0);
+								}
+								to {
+								  transform: translateX(-6.25%);
+								}
+							}
+							  
+							@keyframes move-mid {
+								from {
+								  transform: translateX(0);
+								}
+								to {
+								  transform: translateX(-12.5%);
+								}
+							}
+						</code>
+					</pre>						
+				   </code>
+				   </pre>
+				</div>
+					<iframe id="ytplayer" width="700" height="315" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=16&amp;rel=0&amp;end=18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				  </section>				 
+				  <section data-transition="slide-in">
+					<div>
+					<pre data-id="code">
+						<code data-trim data-noescape data-line-numbers="0-10|13-21|22-26|29-110">
+							@container scroll-state((scrollable: left)) {
+								body {
+									overflow-y: hidden;
+								}
+							}
+							
+							@container scroll-state((scrollable: bottom)) {
+								body {
+									width: 0;
+								}
+							}
+
+							:root {
+								animation: adjust-pos 1s linear, move-sprite-up 1s linear, move-player 1s linear;
+								animation-timeline: scroll(x), scroll(y), scroll(x);
+								container-type: scroll-state;
+							
+								.ladder {
+								  height: 300vh;
+								}
+
+								.spawn-point {
+									position: absolute;
+									left: 400vw;
+									scroll-initial-target: nearest;
+								}
+							}
+							
+							@keyframes collect-saber {
+								from {
+									--player-has-saber: false;
+								}
+							
+								to {
+									--player-has-saber: true;
+								}
+							}
+							
+							body {
+								animation: .25s forwards var(--saber-collection-state, paused) collect-saber;
+							}
+							
+							@container scroll-state(not (scrollable: top)) {
+								body {
+									--saber-collection-state: running;
+								}
+							}
+							
+							@container style(--player-has-saber: true) {
+								.sprite {
+									background-image: url(/*combat spritesheet*/);
+								}
+							
+								.lightsaber {
+									visibility: hidden;
+								}
+							}
+							
+							body {
+								--min-of-player-and-enemy-x: min(var(--player-x-offset), var(--enemy-x-offset) - 10px);
+								--max-of-player-and-enemy-y: max(var(--player-y-offset, 5px));
+								--game-state: if(style(--min-of-player-and-enemy-x: calc(var(--enemy-x-offset) - 10px)) and style(--max-of-player-and-enemy-y: 5px): ending;
+										else: playing);
+								overflow: if(style(--game-state: ending): hidden;
+										else: scroll);
+							}
+							
+							@container style(--player-has-saber: true) and style(--game-state: ending) {
+								.player-wrapper {
+									.sprite {
+										animation: attack 0.7s steps(4) forwards;
+									}
+							
+									.speech-bubble {
+										animation: show-endgame-message 3s linear 1s forwards;
+							
+										&::before {
+											content: 'Refresh the page to play again';
+										}
+									}
+							
+									.evil-twin-wrapper {
+										.evil-twin {
+											evil-twin-die 0.8s steps(4) .7s forwards;
+										}
+									}
+								}
+							
+								@container style(--player-has-saber: false) and style(--game-state: ending) {
+									.player-wrapper {
+										.sprite {
+											animation: player-die .8s steps(6) .7s forwards;
+										}
+									}
+							
+									.evil-twin-wrapper {
+										.speech-bubble {
+											animation: show-endgame-message 3s linear 1s forwards;
+											display: block;
+							
+											&::before {
+												content: 'Baha! Refresh the page to fight me again';
+											}
+							
+											.evil-twin {
+												attack 0.8s steps(4) infinite;
+											}
+										}
+									}
+								}	   
+						</code>
+					</pre>						
+				   </code>
+				   </pre>
+				</div>
+					<iframe id="ytplayer" width="700" height="315" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=17&amp;rel=0&amp;end=37" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				  </section>
+
+				</div>
 			</div>
 		</div>
 
@@ -31,9 +305,12 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
+				view: 'scroll',
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+				scrollProgress: true,
+				scrollSnap: 'mandatory',
+				autoPlayMedia: true,
 			});
 		</script>
 	</body>

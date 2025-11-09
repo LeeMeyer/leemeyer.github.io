@@ -506,9 +506,7 @@ export default class SlideContent {
 				}
 
 			}
-
 		}
-
 	}
 
 	/**
@@ -518,7 +516,6 @@ export default class SlideContent {
 	 * @param {HTMLElement} element
 	 */
 	stopEmbeddedContent( element, options = {} ) {
-
 		options = extend( {
 			// Defaults
 			unloadIframes: true
@@ -568,7 +565,6 @@ export default class SlideContent {
 				} );
 			}
 		}
-
 	}
 
 	/**
@@ -577,9 +573,7 @@ export default class SlideContent {
 	 * direct user interaction.
 	 */
 	isNotAllowedToPlay() {
-
 		return !this.allowedToPlay;
-
 	}
 
 	/**
@@ -590,8 +584,6 @@ export default class SlideContent {
 	preventIframeAutoFocus( event ) {
 
 		const iframe = event.target;
-
-		console.log(111)
 
 		if( iframe && this.Reveal.getConfig().preventIframeAutoFocus ) {
 
@@ -608,9 +600,6 @@ export default class SlideContent {
 			};
 
 			setTimeout( checkFocus, interval );
-
 		}
-
 	}
-
 }
