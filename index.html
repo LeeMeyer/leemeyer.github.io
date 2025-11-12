@@ -23,7 +23,7 @@
 				</section>
 
 				<section data-auto-animate>
-					<h2>Scroll-linked animation without scroll timeline</h2>
+					<h2>Scroll-linked animation before scroll timeline</h2>
 					<div data-id="demo">
 						<p class="codepen" data-height="416" data-default-tab="html,result" data-slug-hash="NWxpJVx" data-pen-title="Bind CSS keyframe animation to scroll" data-user="chriscoyier" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
 							<span>See the Pen <a href="https://codepen.io/chriscoyier/pen/NWxpJVx">
@@ -35,7 +35,7 @@
 					</div>
 				  </section>
 				<section data-auto-animate>
-					<h2>Scroll-linked animation without scroll timeline</h2>
+					<h2>Scroll-linked animation with scroll timeline!</h2>
 						<pre data-id="code2">
 							<code data-trim data-noescape data-line-numbers>
 								window.addEventListener('scroll', () => {
@@ -80,8 +80,116 @@
 							<script async src="https://public.codepenassets.com/embed/index.js"></script>
 					</div>
 				  </section>
+				  <section>
+					<h2>timeline scope</h2>
+					<p class="codepen" data-height="500" data-default-tab="html,result" data-slug-hash="XWvrMBr" data-pen-title="scroll linked 3D demo" data-user="leemeyer" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+						<span>See the Pen <a href="https://codepen.io/leemeyer/pen/XWvrMBr">
+					scroll linked 3D demo</a> by lee (<a href="https://codepen.io/leemeyer">@leemeyer</a>)
+					on <a href="https://codepen.io">CodePen</a>.</span>
+						</p>
+						<script async src="https://public.codepenassets.com/embed/index.js"></script>
+				  </section>
+				  <section>
+					<h2>timeline scope 3D</h2>
+					<pre data-id="code">
+						<code data-trim data-noescape  data-line-numbers="6|9-17|19-34" >
+							.scene {
+								transform: rotateY(var(--my-y-angle)) rotateX(var(--my-x-angle));
+							}
+
+							body {
+								timeline-scope: --myScroller,--myScroller2; 
+							}
+
+							.card:first-child {
+								scroll-timeline-axis: x;
+								scroll-timeline-name: --myScroller;
+							}
+							  
+							.card:nth-child(2) {
+								scroll-timeline-axis: y;
+								scroll-timeline-name: --myScroller2;
+							}
+
+							.scene {
+								animation: rotateHorizontal,rotateVertical;
+								animation-timeline: --myScroller,--myScroller2;
+							}
+							  
+							@keyframes rotateHorizontal {
+								to {
+								  --my-y-angle: 360deg;
+								}
+							}
+							  
+							@keyframes rotateVertical {
+								to {
+									--my-x-angle: 360deg;
+								}
+							}
+						</code>
+					</pre>
+				  </section>
+				  <section>
+					<h2>timeline scope range inputs</h2>
+					<p class="codepen" data-height="500" data-width="800" data-default-tab="html,result" data-slug-hash="BageLgB" data-pen-title="scroll-linked X-wing" data-user="leemeyer" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+						<span>See the Pen <a href="https://codepen.io/leemeyer/pen/BageLgB">
+					scroll-linked X-wing</a> by lee (<a href="https://codepen.io/leemeyer">@leemeyer</a>)
+					on <a href="https://codepen.io">CodePen</a>.</span>
+						</p>
+						<script async src="https://public.codepenassets.com/embed/index.js"></script>
+				  </section>
+				  <section>
+					<h2>timeline scope pong</h2>
+					<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="ZYEJQNO" data-pen-title="collision detection using style queries plus keyframes" data-user="leemeyer" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+						<span>See the Pen <a href="https://codepen.io/leemeyer/pen/ZYEJQNO">
+					collision detection using style queries plus keyframes</a> by lee (<a href="https://codepen.io/leemeyer">@leemeyer</a>)
+					on <a href="https://codepen.io">CodePen</a>.</span>
+						</p>
+						<script async src="https://public.codepenassets.com/embed/index.js"></script>
+				  </section>
+				  <section>
+					<h2>timeline scope pong</h2>
+					<pre data-id="code">
+						<code data-trim data-noescape>
+							body {
+								--int-ball-position-x: round(down, var(--ball-position-x));
+								--min-ball-position-y-and-top-of-paddle: min(
+								  var(--ball-position-y) + var(--ball-height),
+								  var(--ping-position)
+								);
+								--min-ball-position-y-and-bottom-of-paddle: min(
+								  var(--ball-position-y),
+								  var(--ping-position) + var(--paddle-height)
+								);
+							}
+							  
+							@container style(--int-ball-position-x: var(--ball-left-boundary)) {
+								.screen {
+								  --lives-decrement: running;
+							  
+								  .field {
+								    background: red;
+								  }
+								}
+							}
+							  
+							@container style(--min-ball-position-y-and-top-of-paddle: var(--ping-position)) 
+									and style(--min-ball-position-y-and-bottom-of-paddle: var(--ball-position-y)) 
+									and style(--int-ball-position-x: var(--ball-left-boundary)) {
+								.screen {
+								  --lives-decrement: paused;
+							  
+								  .field {
+								     background: green;
+								  }
+								}
+							}							  
+						</code>
+					</pre>
+				  </section>
 				  <section data-transition="slide-in">
-					<h2>Nonlinear Scrollytelling with scroll-state!</h2>
+					<h2>scroll-state adventure</h2>
 					<p class="codepen" data-height="416" data-default-tab="html,result" data-slug-hash="zxrmzQw" data-pen-title="Nonlinear Scrollytelling" data-user="leemeyer" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
 						<span>See the Pen <a href="https://codepen.io/leemeyer/pen/zxrmzQw">
 					Nonlinear Scrollytelling</a> by lee (<a href="https://codepen.io/leemeyer">@leemeyer</a>)
@@ -90,9 +198,8 @@
 						<script async src="https://public.codepenassets.com/embed/index.js"></script>
 				  </section>
 				  <section data-transition="slide-in">
-					<div>
 					<pre data-id="code">
-						<code data-trim data-noescape>
+						<code data-trim data-noescape style="height: 300px;">
 							.idle {
 								animation: idleAnim 1s steps(6) infinite;
 							}
@@ -110,18 +217,14 @@
 								}
 							}
 						</code>
-					</pre>						
-				   </code>
-				   </pre>
-				</div>
-
-					<iframe id="ytplayer" width="700" height="315" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=3&amp;rel=0&amp;end=5&amp;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					</pre>
+					<iframe id="ytplayer" width="100%" height="400" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=3&amp;rel=0&amp;end=5&amp;" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 				  </section>			
 		
 				  <section data-transition="slide-in">
 					<div>
 					<pre data-id="code">
-						<code data-trim data-noescape data-line-numbers="10|15-40">
+						<code data-trim data-noescape data-line-numbers="10|15-40" style="height: 300px;">
 							.sky, .buildings-back, .buildings-mid, .sky-vertical, .buildings-back-vertical, .buildings-mid-vertical {
 								position: fixed;
 								top: 0;
@@ -166,13 +269,14 @@
 					</pre>						
 				   </code>
 				   </pre>
+
+					<iframe id="ytplayer" width="100%" height="400" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=16&amp;rel=0&amp;end=18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 				</div>
-					<iframe id="ytplayer" width="700" height="315" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=16&amp;rel=0&amp;end=18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 				  </section>				 
 				  <section data-transition="slide-in">
 					<div>
 					<pre data-id="code">
-						<code data-trim data-noescape data-line-numbers="0-10|13-21|22-26|29-110">
+						<code data-trim data-noescape data-line-numbers="0-10|13-21|22-26|29-110" style="height: 300px;">
 							@container scroll-state((scrollable: left)) {
 								body {
 									overflow-y: hidden;
@@ -288,9 +392,14 @@
 				   </code>
 				   </pre>
 				</div>
-					<iframe id="ytplayer" width="700" height="315" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=17&amp;rel=0&amp;end=37" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					<iframe width="100%" height="400"  id="ytplayer" src="https://www.youtube.com/embed/cseY_nbKHaw?si=6ZI71UewUAogm-MC&amp;start=17&amp;rel=0&amp;end=37" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 				  </section>
-
+				  <section>
+					<h1>Thank you</h1>
+					<a href="https://css-tricks.com/author/leemeyer/">https://css-tricks.com/author/leemeyer/</a>
+					<a href="https://www.linkedin.com/in/meyerlee/">https://www.linkedin.com/in/meyerlee/</a>
+			<div>Slides @ <a href="https://leemeyer.github.io/">https://leemeyer.github.io/</a></div>
+				  </section>
 				</div>
 			</div>
 		</div>
